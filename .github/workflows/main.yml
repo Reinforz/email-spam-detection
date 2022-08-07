@@ -19,6 +19,7 @@ jobs:
           python-version: '3.10'
       - name: Build README.md
         run: |
+          pip install jupyter
           jupyter nbconvert --to Markdown pd_project.ipynb
           mv pd_project.md README.md
       - name: Commit & Push changes
