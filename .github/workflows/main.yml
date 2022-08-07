@@ -1,7 +1,10 @@
 name: Readme File Builder
+
 on:
-  schedule:
-    - cron: "0 0 * * *"
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
   workflow_dispatch:
 
@@ -11,14 +14,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Setup Python
-        - uses: actions/setup-python@v4.2.0
-          with:
-            python-version: '3.10'
-            cache: 'pip' # caching pip dependencies
+        uses: actions/setup-python@v4.2.0
+        with:
+          python-version: '3.10'
+          cache: 'pip' # caching pip dependencies
       - name: Build README.md
         run: |
           jupyter nbconvert --to Markdown pd_project.ipynb
           mv pd_project.md README.md
-      - name: GitHub Commit
-        - uses: 
-
+      - name: Commit & Push changes
+        run: |
+          git -c user.name="xImouto" -c user.email="mohammad.rafid.hamid@g.bracu.ac.bd" \ add README.md \ commit -m "daily built readme"
