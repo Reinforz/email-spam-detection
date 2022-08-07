@@ -24,6 +24,7 @@ jobs:
         run: |
           jupyter nbconvert --to Markdown pd_project.ipynb
           python processReadMe.py
+          rm pd_project.md
       - name: Commit & Push changes
         run: |
           git config --global user.name "xImouto"
