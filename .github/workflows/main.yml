@@ -13,6 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            src:
+              - 'pd_project.*'
+
+        # run only if some file in 'src' folder was changed
+      - if: steps.changes.outputs.src == 'true'
       - name: Setup Python
         uses: actions/setup-python@v4.2.0
         with:
