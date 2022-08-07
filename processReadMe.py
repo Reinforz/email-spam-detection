@@ -8,13 +8,14 @@ print(f"Reading File {source}")
 with open(source) as f:
   mdFile = f.read()
 
-mdFile = re.sub(r"<style scoped>.*</style>", "", mdFile)
+print (re.search(r"</style>", mdFile))
+res = re.sub(r"<style scoped>.*</style>", "", mdFile, flags=re.DOTALL)
 print("deleted style scoped tags")
 
 with open(dest, 'w') as f:
-  f.write(mdFile)
+  f.write(res)
 
 print(f"Successfully Generated {dest}")
 
-os.remove(source)
+# os.remove(source)
 print(f"Successfully Deleted {source}")
