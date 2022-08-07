@@ -1,0 +1,24 @@
+name: Readme File Builder
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Python
+        - uses: actions/setup-python@v4.2.0
+          with:
+            python-version: '3.10'
+            cache: 'pip' # caching pip dependencies
+      - name: Build README.md
+        run: |
+          jupyter nbconvert --to Markdown pd_project.ipynb
+          mv pd_project.md README.md
+      - name: GitHub Commit
+        - uses: 
+
