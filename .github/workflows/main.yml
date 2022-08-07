@@ -24,6 +24,7 @@ jobs:
           mv pd_project.md README.md
       - name: Commit & Push changes
         run: |
-          git -c user.name="xImouto" -c user.email="mohammad.rafid.hamid@g.bracu.ac.bd"
+          git -c user.name="xImouto"
+          git -c user.email="mohammad.rafid.hamid@g.bracu.ac.bd"
           git add README.md
           git commit -m "daily built readme"
