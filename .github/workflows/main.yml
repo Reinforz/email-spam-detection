@@ -29,5 +29,5 @@ jobs:
           git config --global user.name "xImouto"
           git config --global user.name "mohammad.rafid.hamid@g.bracu.ac.bd"
           git add README.md
-          git commit -m "daily built readme"
+          git commit -m "built readme"
           git push origin main
