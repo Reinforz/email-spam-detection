@@ -27,7 +27,7 @@ jobs:
       - name: Commit & Push changes
         run: |
           git config --global user.name "xImouto"
-          git config --global user.name "mohammad.rafid.hamid@g.bracu.ac.bd"
+          git config --global user.email "mohammad.rafid.hamid@g.bracu.ac.bd"
           git add README.md
           git commit -m "built readme"
           git push origin main
