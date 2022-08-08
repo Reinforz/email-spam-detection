@@ -23,4 +23,4 @@ jobs:
 
       - name: build README.md
         if: steps.changes.outputs.src == 'true'
-        uses: ./.github/actions/readme-build.yml
+        uses: ./.github/actions/readme-build
