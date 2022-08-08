@@ -11,11 +11,13 @@ runs:
         cache: "pip"
     - name: Install Requirements
       run: pip install -r requirements.txt
+      shell: bash
     - name: Build README.md
       run: |
         jupyter nbconvert --to Markdown pd_project.ipynb
         python processReadMe.py
         rm pd_project.md
+      shell: bash
     - name: Commit & Push changes
       run: |
         git config --global user.name "xImouto"
@@ -23,3 +25,4 @@ runs:
         git add README.md
         git commit -m "built readme"
         git push origin main
+      shell: bash

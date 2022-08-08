@@ -23,5 +23,4 @@ jobs:
 
       - name: build README.md
         if: steps.changes.outputs.src == 'true'
-        shell: bash
         uses: ./.github/actions/readme-build
