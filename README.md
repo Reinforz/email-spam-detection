@@ -16,20 +16,38 @@
 
 # Introduction
 
-Parkinson's disease decription, reason for study (https://www.sciencedirect.com/science/article/abs/pii/S1386505618303344?via%3Dihub). Therefore, the pupose of this project is to help detecting it.
+Parkinson's disease decription, reason for study [[1]](#cite1). Therefore, the pupose of this project is to help detecting it.
+
+# Methodology
+TO-DO soon
 
 
 ```python
 import pandas as pd
 import numpy as np
-
 ```
+
+### Dataset Description
+Data taken from [[2]](#cite2)
+
+##### Attribute Information:
+- name - subject name and recording number
+- MDVP:Fo(Hz) - Average vocal fundamental frequency
+- MDVP:Fhi(Hz) - Maximum vocal fundamental frequency
+- MDVP:Flo(Hz) - Minimum vocal fundamental frequency
+- MDVP:Jitter(%), MDVP:Jitter(Abs), MDVP:RAP, MDVP:PPQ, Jitter:DDP - Several measures of variation in fundamental frequency
+- MDVP:Shimmer, MDVP:Shimmer(dB), Shimmer:APQ3, Shimmer:APQ5, MDVP:APQ, Shimmer:DDA - Several measures of variation in amplitude
+- NHR, HNR - measures of ratio of noise to tonal components in the voice
+- status - one means subject has Parkinson's, zero means subject is healthy
+- RPDE, D2 - nonlinear dynamical complexity measures
+- DFA - Signal fractal scaling exponent
+- spread1, spread2, PPE - Three nonlinear measures of fundamental frequency variation
 
 
 ```python
 # Data From https://www.kaggle.com/datasets/debasisdotcom/parkinson-disease-detection?resource=download
 data = pd.read_csv('./Parkinsson disease.csv')
-data
+data.head()
 ```
 
 
@@ -185,153 +203,54 @@ data
       <td>2.332180</td>
       <td>0.410335</td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>190</th>
-      <td>phon_R01_S50_2</td>
-      <td>174.188</td>
-      <td>230.978</td>
-      <td>94.261</td>
-      <td>0.00459</td>
-      <td>0.00003</td>
-      <td>0.00263</td>
-      <td>0.00259</td>
-      <td>0.00790</td>
-      <td>0.04087</td>
-      <td>...</td>
-      <td>0.07008</td>
-      <td>0.02764</td>
-      <td>19.517</td>
-      <td>0</td>
-      <td>0.448439</td>
-      <td>0.657899</td>
-      <td>-6.538586</td>
-      <td>0.121952</td>
-      <td>2.657476</td>
-      <td>0.133050</td>
-    </tr>
-    <tr>
-      <th>191</th>
-      <td>phon_R01_S50_3</td>
-      <td>209.516</td>
-      <td>253.017</td>
-      <td>89.488</td>
-      <td>0.00564</td>
-      <td>0.00003</td>
-      <td>0.00331</td>
-      <td>0.00292</td>
-      <td>0.00994</td>
-      <td>0.02751</td>
-      <td>...</td>
-      <td>0.04812</td>
-      <td>0.01810</td>
-      <td>19.147</td>
-      <td>0</td>
-      <td>0.431674</td>
-      <td>0.683244</td>
-      <td>-6.195325</td>
-      <td>0.129303</td>
-      <td>2.784312</td>
-      <td>0.168895</td>
-    </tr>
-    <tr>
-      <th>192</th>
-      <td>phon_R01_S50_4</td>
-      <td>174.688</td>
-      <td>240.005</td>
-      <td>74.287</td>
-      <td>0.01360</td>
-      <td>0.00008</td>
-      <td>0.00624</td>
-      <td>0.00564</td>
-      <td>0.01873</td>
-      <td>0.02308</td>
-      <td>...</td>
-      <td>0.03804</td>
-      <td>0.10715</td>
-      <td>17.883</td>
-      <td>0</td>
-      <td>0.407567</td>
-      <td>0.655683</td>
-      <td>-6.787197</td>
-      <td>0.158453</td>
-      <td>2.679772</td>
-      <td>0.131728</td>
-    </tr>
-    <tr>
-      <th>193</th>
-      <td>phon_R01_S50_5</td>
-      <td>198.764</td>
-      <td>396.961</td>
-      <td>74.904</td>
-      <td>0.00740</td>
-      <td>0.00004</td>
-      <td>0.00370</td>
-      <td>0.00390</td>
-      <td>0.01109</td>
-      <td>0.02296</td>
-      <td>...</td>
-      <td>0.03794</td>
-      <td>0.07223</td>
-      <td>19.020</td>
-      <td>0</td>
-      <td>0.451221</td>
-      <td>0.643956</td>
-      <td>-6.744577</td>
-      <td>0.207454</td>
-      <td>2.138608</td>
-      <td>0.123306</td>
-    </tr>
-    <tr>
-      <th>194</th>
-      <td>phon_R01_S50_6</td>
-      <td>214.289</td>
-      <td>260.277</td>
-      <td>77.973</td>
-      <td>0.00567</td>
-      <td>0.00003</td>
-      <td>0.00295</td>
-      <td>0.00317</td>
-      <td>0.00885</td>
-      <td>0.01884</td>
-      <td>...</td>
-      <td>0.03078</td>
-      <td>0.04398</td>
-      <td>21.209</td>
-      <td>0</td>
-      <td>0.462803</td>
-      <td>0.664357</td>
-      <td>-5.724056</td>
-      <td>0.190667</td>
-      <td>2.555477</td>
-      <td>0.148569</td>
-    </tr>
   </tbody>
 </table>
-<p>195 rows × 24 columns</p>
+<p>5 rows × 24 columns</p>
 </div>
 
 
+
+### Data Pre-Processing
+
+
+```python
+# TO-DO
+```
+
+### Applied Models
+- chosen model making algorithms
+
+
+```python
+# TODO Apply models
+```
+
+# Results
+TODO
+
+
+```python
+# TODO show results and visualizations
+```
+
+# CONTRIBUTORS
+Members of CSE422, section 1, project team Elytra:
+- Mohammad Rafid Hamid, Student ID: 20101491
+
+# REFERENCES
+
+
+<a id="cite1">[1]</a> R. Prashanth, Sumantra Dutta Roy,
+Early detection of Parkinson’s disease through patient questionnaire and predictive modelling,
+International Journal of Medical Informatics,
+Volume 119,
+2018,
+Pages 75-87,
+ISSN 1386-5056,
+https://doi.org/10.1016/j.ijmedinf.2018.09.008.
+
+<a id="cite2">[2]</a> 'Exploiting Nonlinear Recurrence and Fractal Scaling Properties for Voice Disorder Detection',
+Little MA, McSharry PE, Roberts SJ, Costello DAE, Moroz IM.
+BioMedical Engineering OnLine 2007, 6:23,
+June 2007
+https://www.kaggle.com/datasets/debasisdotcom/parkinson-disease-detection
