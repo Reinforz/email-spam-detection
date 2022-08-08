@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - uses: dorny/paths-filter@v2
         id: changes
         with:
@@ -20,24 +21,6 @@ jobs:
             src:
               - 'pd_project.*'
 
-        # run only if some file in 'src' folder was changed
-      - if: steps.changes.outputs.src == 'true'
-      - name: Setup Python
-        uses: actions/setup-python@v4.2.0
-        with:
-          python-version: '3.10'
-          cache: 'pip'
-      - name: Install Requirements
-        run: pip install -r requirements.txt
-      - name: Build README.md
-        run: |
-          jupyter nbconvert --to Markdown pd_project.ipynb
-          python processReadMe.py
-          rm pd_project.md
-      - name: Commit & Push changes
-        run: |
-          git config --global user.name "xImouto"
-          git config --global user.email "mohammad.rafid.hamid@g.bracu.ac.bd"
-          git add README.md
-          git commit -m "built readme"
-          git push origin main
+      - name: build README.md
+        if: steps.changes.outputs.src == 'true'
+        uses: ./.github/actions/readme-build.yml
