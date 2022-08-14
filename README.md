@@ -67,6 +67,187 @@ fullData.head()
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>name</th>
+      <th>MDVP:Fo(Hz)</th>
+      <th>MDVP:Fhi(Hz)</th>
+      <th>MDVP:Flo(Hz)</th>
+      <th>MDVP:Jitter(%)</th>
+      <th>MDVP:Jitter(Abs)</th>
+      <th>MDVP:RAP</th>
+      <th>MDVP:PPQ</th>
+      <th>Jitter:DDP</th>
+      <th>MDVP:Shimmer</th>
+      <th>...</th>
+      <th>Shimmer:DDA</th>
+      <th>NHR</th>
+      <th>HNR</th>
+      <th>status</th>
+      <th>RPDE</th>
+      <th>DFA</th>
+      <th>spread1</th>
+      <th>spread2</th>
+      <th>D2</th>
+      <th>PPE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>phon_R01_S01_1</td>
+      <td>119.992</td>
+      <td>157.302</td>
+      <td>74.997</td>
+      <td>0.00784</td>
+      <td>0.00007</td>
+      <td>0.00370</td>
+      <td>0.00554</td>
+      <td>0.01109</td>
+      <td>0.04374</td>
+      <td>...</td>
+      <td>0.06545</td>
+      <td>0.02211</td>
+      <td>21.033</td>
+      <td>1</td>
+      <td>0.414783</td>
+      <td>0.815285</td>
+      <td>-4.813031</td>
+      <td>0.266482</td>
+      <td>2.301442</td>
+      <td>0.284654</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>phon_R01_S01_2</td>
+      <td>122.400</td>
+      <td>148.650</td>
+      <td>113.819</td>
+      <td>0.00968</td>
+      <td>0.00008</td>
+      <td>0.00465</td>
+      <td>0.00696</td>
+      <td>0.01394</td>
+      <td>0.06134</td>
+      <td>...</td>
+      <td>0.09403</td>
+      <td>0.01929</td>
+      <td>19.085</td>
+      <td>1</td>
+      <td>0.458359</td>
+      <td>0.819521</td>
+      <td>-4.075192</td>
+      <td>0.335590</td>
+      <td>2.486855</td>
+      <td>0.368674</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>phon_R01_S01_3</td>
+      <td>116.682</td>
+      <td>131.111</td>
+      <td>111.555</td>
+      <td>0.01050</td>
+      <td>0.00009</td>
+      <td>0.00544</td>
+      <td>0.00781</td>
+      <td>0.01633</td>
+      <td>0.05233</td>
+      <td>...</td>
+      <td>0.08270</td>
+      <td>0.01309</td>
+      <td>20.651</td>
+      <td>1</td>
+      <td>0.429895</td>
+      <td>0.825288</td>
+      <td>-4.443179</td>
+      <td>0.311173</td>
+      <td>2.342259</td>
+      <td>0.332634</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>phon_R01_S01_4</td>
+      <td>116.676</td>
+      <td>137.871</td>
+      <td>111.366</td>
+      <td>0.00997</td>
+      <td>0.00009</td>
+      <td>0.00502</td>
+      <td>0.00698</td>
+      <td>0.01505</td>
+      <td>0.05492</td>
+      <td>...</td>
+      <td>0.08771</td>
+      <td>0.01353</td>
+      <td>20.644</td>
+      <td>1</td>
+      <td>0.434969</td>
+      <td>0.819235</td>
+      <td>-4.117501</td>
+      <td>0.334147</td>
+      <td>2.405554</td>
+      <td>0.368975</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>phon_R01_S01_5</td>
+      <td>116.014</td>
+      <td>141.781</td>
+      <td>110.655</td>
+      <td>0.01284</td>
+      <td>0.00011</td>
+      <td>0.00655</td>
+      <td>0.00908</td>
+      <td>0.01966</td>
+      <td>0.06425</td>
+      <td>...</td>
+      <td>0.10470</td>
+      <td>0.01767</td>
+      <td>19.649</td>
+      <td>1</td>
+      <td>0.417356</td>
+      <td>0.823484</td>
+      <td>-3.747787</td>
+      <td>0.234513</td>
+      <td>2.332180</td>
+      <td>0.410335</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 24 columns</p>
+</div>
+
+
+
+### Data Pre-Processing
+
+
+```python
+x = fullData.drop(['name','status'], axis='columns')
+
+# filling n/a values
+for column in x:
+  if x[column].count()/num < 0.8:
+    # drop columns if less than 80% of the values are not null
+    x=x.drop([column], axis='columns')
+  else:
+    # set n/a values to mean of other values
+    x[column] = x[column].fillna(x[column].mean())
+
+# TODO scaling
+
+x
+
+```
+
+
+
+
+<div>
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
       <th>MDVP:Fo(Hz)</th>
       <th>MDVP:Fhi(Hz)</th>
       <th>MDVP:Flo(Hz)</th>
