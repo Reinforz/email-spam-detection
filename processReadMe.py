@@ -9,7 +9,7 @@ with open(source) as f:
   mdFile = f.read()
 
 print (re.search(r"</style>", mdFile))
-res = re.sub(r"<style scoped>.*</style>", "", mdFile, flags=re.DOTALL)
+res = re.sub(r"<style scoped>[^<>]*</style>", "", mdFile, flags=re.DOTALL)
 print("deleted style scoped tags")
 
 with open(dest, 'w') as f:

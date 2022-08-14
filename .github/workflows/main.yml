@@ -19,7 +19,8 @@ jobs:
         with:
           filters: |
             src:
-              - 'pd_project.*'
+              - 'pd_project.ipynb'
+              - 'processReadMe.py'
 
       - name: build README.md
         if: steps.changes.outputs.src == 'true'
