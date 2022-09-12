@@ -19,7 +19,7 @@ jobs:
         with:
           filters: |
             src:
-              - 'pd_project.ipynb'
+              - 'esd.ipynb'
               - 'processReadMe.py'
 
       - name: build README.md

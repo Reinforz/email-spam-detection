@@ -14,13 +14,13 @@ runs:
       shell: bash
     - name: Build README.md
       run: |
-        jupyter nbconvert --to Markdown pd_project.ipynb
+        jupyter nbconvert --to Markdown esd.ipynb
         python processReadMe.py
-        rm pd_project.md
+        rm esd.md
       shell: bash
     - name: Commit & Push changes
       run: |
-        git config --global user.name "xImouto"
+        git config --global user.name "imoxto"
         git config --global user.email "mohammad.rafid.hamid@g.bracu.ac.bd"
         git add README.md
         git commit -m "built readme"
